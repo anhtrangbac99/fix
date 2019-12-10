@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block script %}
+    <!-- <script type="text/javascript" src="{% static 'my-js/single-product.js' %}"></script> -->
+{% endblock script %}
+
+{% block breadcrumb_start %}
+  Home / confirmation
+{% endblock breadcrumb_start %}
+
+{% block content %}
+
+  <!-- Header part end-->
+  
+  <!--================Home Banner Area =================-->
+
+
+  <!--================ confirmation part start =================-->
+  <section class="confirmation_part section_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="confirmation_tittle">
+            <span>Thank you. Your order has been received.</span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-lx-4">
+          <div class="single_confirmation_details">
+            <h4>order info</h4>
+            <ul>
+              <li>
+                <p>order number</p><span>: 60235</span>
+              </li>
+              <li>
+                <p>order date</p><span>: Oct 03, 2017</span>
+              </li>
+              <li>
+                <p>total</p><span>: USD 2210</span>
+              </li>
+              <li>
+                <p>status</p><span>: confirmed</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6 col-lx-4">
+          <div class="single_confirmation_details">
+            <h4>Billing & Shipping Address</h4>
+            <ul>
+              <li>
+                <p>name</p><span>: Vo Khac Thanh</span>
+              </li>
+              <li>
+                <p>City</p><span>: Hochiminh, 700000</span>
+              </li>
+              <li>
+                <p>Country </p><span>: Vietnam</span>
+              </li>
+               <li>
+                <p>Phone Number </p><span>: 0399505707</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="order_details_iner">
+            <h3>Order Details</h3>
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="2">Product</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for product in products%}
+                <tr>
+                  <th colspan="2"><span>{{product.product_name}}</span></th>
+                  <th>02</th>
+                  <th> <span>${{product.price}}</span></th>
+                </tr>
+              {% endfor %}
+                {% comment %} <tr>
+                  <th colspan="2"><span>Pixelstore fresh Blackberry</span></th>
+                  <th>02</th>
+                  <th> <span>$720.00</span></th>
+                </tr>
+                <tr>
+                  <th colspan="2"><span>Pixelstore fresh Blackberry</span></th>
+                  <th>02</th>
+                  <th> <span>$720.00</span></th>
+                </tr> {% endcomment %}
+                <tr>
+                  <th colspan="3">Subtotal</th>
+                  <th> <span>${{stotal}}</span></th>
+                </tr>
+                <tr>
+                  <th colspan="3">shipping</th>
+                  <th><span>$50.00</span></th>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="col" colspan="3">Quantity</th>
+                  <th scope="col">${{total}}</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"><a href="{% url 'amazon:homepage'%}"><button class="btn_3"> Accept & Keep Shopping </button></a></div>
+        <div class="col-md-4"></div>
+      </div>
+
+    </div>
+
+    
+  </section>
+  <!--================ confirmation part end =================-->
+
+  <!-- subscribe_area part start-->
+<!--::subscribe_area part end::-->
+
+{% endblock content %}

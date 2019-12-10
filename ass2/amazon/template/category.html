@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block breadcrumb_start %}
+  Home/Category
+{% endblock breadcrumb_start %}
+
+{% block content %}
+    <!-- Header part end-->
+    
+
+    <!--================Home Banner Area =================-->
+    <!-- breadcrumb start-->
+    <!--<section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <p>Home / Category</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- breadcrumb start-->
+
+    <!--================Category Product Area =================-->
+    <section class="cat_product_area section_padding border_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="left_sidebar_area">
+                        <aside class="left_widgets p_filter_widgets sidebar_box_shadow">
+                            <div class="l_w_title">
+                                <h3>Browse Categories</h3>
+                            </div>
+                            <div class="widgets_inner">
+                                <ul class="list">
+                                    <li class="sub-menu">
+                                        <a href="#Electronics" class=" d-flex justify-content-between">
+                                            Electronics
+                                            <div class="right ti-plus"></div>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="#Electronics">Home Appliances</a>
+                                            </li>
+                                            <li>
+                                                <a href="#Electronics">Smartphones</a>
+                                            </li>
+                                            <li>
+                                                <a href="#Electronics">Kitchen Appliances</a>
+                                            </li>
+                                            <li>
+                                                <a href="#Electronics">Computer Accessories</a>
+                                            </li>
+                                            <li>
+                                                <a href="#Electronics">Meat Alternatives</a>
+                                            </li>
+                                            <li>
+                                                <a href="#Electronics">Appliances</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+
+                        <aside class="left_widgets p_filter_widgets sidebar_box_shadow">
+                            <div class="l_w_title">
+                                <h3>Product filters</h3>
+                            </div>
+                            <div class="widgets_inner">
+                                <ul class="list">
+                                    <p>Brands</p>
+                                    <li>
+                                        <input type="checkbox" name="checkbox-1" id="checkbox-1"/>
+                                        <label for="checkbox-1">Apple</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="checkbox-2" id="checkbox-2">
+                                        <label for="checkbox-2">Asus</label>
+                                    </li>
+                                </ul>
+                                <ul class="list">
+                                    <p>color</p>
+                                    <li>
+                                        <input type="checkbox" name="checkbox-3" id="checkbox-3">
+                                        <label for="checkbox-3">Black</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="checkbox-4" id="checkbox-4">
+                                        <label for="checkbox-4">Red</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="product_top_bar d-flex justify-content-between align-items-center">
+                                <div class="single_product_menu product_bar_item">
+                                    <h2>Womans (12)</h2>
+                                </div>
+                                <div class="product_top_bar_iner product_bar_item d-flex">
+                                    <div class="product_bar_single">
+                                        <select>
+                                            <option data-display="Show 12">Show 12</option>
+                                            <option value="1">Show 20</option>
+                                            <option value="2">Show 30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% for product in products %}
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="single_category_product">
+                                <div class="single_category_img">
+                                    {% get_static_prefix as STATIC_URL %}
+
+                                    {% for product_picture in product_pictures %}
+                                        {% if product_picture.product_id == product.product_id%}
+                                            <img src="{{STATIC_URL}}{{product_picture.image}}" alt="">
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+
+                                    <div class="category_social_icon">
+                                        <ul>
+                                            <li><a href="#"><i class="ti-heart"></i></a></li>
+                                            <li><a href="#"><i class="ti-bag"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="category_product_text">
+                                        <form action="{% url 'amazon:single_product'%}" method="post">
+                                            {% csrf_token %} 
+                                            <button style="background: none!important; border:none; padding: 0!important;" formaction="{% url 'amazon:single_product'%}"name="s_product" value="{{product.product_id}}" ><h5>{{product.product_name}}</h5></button>
+                                            <p>${{product.price}}</p>
+                                        </form>
+                                    </div>
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}    
+                        {% comment %} 
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="single_category_product">
+                                <div class="single_category_img">
+                                    <img src="{% static 'img/category/category_2.png' %}" alt="">
+                                    <div class="category_social_icon">
+                                        <ul>
+                                            <li><a href="#"><i class="ti-heart"></i></a></li>
+                                            <li><a href="#"><i class="ti-bag"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="category_product_text">
+                                        <a onclick='goSingle_product()'><h5>Long Sleeve TShirt</h5></a>
+                                        <p>$150.00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="single_category_product">
+                                <div class="single_category_img">
+                                    <img src="{% static 'img/category/category_3.png' %}" alt="">
+                                    <div class="category_social_icon">
+                                        <ul>
+                                            <li><a href="#"><i class="ti-heart"></i></a></li>
+                                            <li><a href="#"><i class="ti-bag"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="category_product_text">
+                                        <a onclick='goSingle_product()'><h5>Long Sleeve TShirt</h5></a>
+                                        <p>$150.00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="single_category_product">
+                                <div class="single_category_img">
+                                    <img src="{% static 'img/category/category_4.png' %}" alt="">
+                                    <div class="category_social_icon">
+                                        <ul>
+                                            <li><a href="#"><i class="ti-heart"></i></a></li>
+                                            <li><a href="#"><i class="ti-bag"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="category_product_text">
+                                        <a onclick='goSingle_product()'><h5>Long Sleeve TShirt</h5></a>
+                                        <p>$150.00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+                        <div class="col-lg-12 text-center">
+                            <a href="#" class="btn_2">More Items</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Category Product Area =================-->
+
+    <!-- free shipping here -->
+    <!-- free shipping end -->
+    
+    <!-- subscribe_area part start-->
+
+    <!--::subscribe_area part end::-->
+
+   {% endblock content %}

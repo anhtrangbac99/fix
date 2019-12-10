@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block breadcrumb_start %}
+  Home/Shop/Single product/Cart list
+{% endblock breadcrumb_start %}
+
+{% block content %}
+  <!--================Cart Area =================-->
+  <section class="cart_area section_padding">
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            <form class="form-group" >
+            {% for product in products %}
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="d-flex">
+                      {% for product_picture in product_pictures %}
+                        {% if product_picture.product_id == product.product_id%}
+                          {% get_static_prefix as STATIC_URL %}
+                          <img src="{{STATIC_URL}}{{product_picture.image}}" alt="" />
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    <div class="media-body">
+                      <p>{{product.product_name}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <h5 id="product-price">${{product.price}}</h5>
+                </td>
+                <td>
+                  <div class="product_count">
+                      <input  class="form-control product-quant" data-order="{{forloop.counter0}}" type="number" value={{input_num}} min="0" max="10">
+                  </div>
+                </td>
+                <td>
+                  {% load mathfilters %}
+                  <h5 id="final-price">${{product.price|mul:input_num}}</h5>
+                </td>
+              </tr>
+            {% endfor%}
+            </form>
+            </tbody>
+          </table>
+
+
+            <div class="checkout_btn_inner float-right">
+               <a class="btn_1 checkout_btn_1" href="{{BASE_DIR}}checkout_shipment">Proceed to checkout</a>
+            </div>
+        </div>
+      </div>
+  </section>
+  <!--================End Cart Area =================-->
+
+{% endblock content %}
